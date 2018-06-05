@@ -5,6 +5,7 @@ import { getEnv } from './env';
 import { AppLogger } from './logger';
 import { AppService } from './app.service';
 import { ConfigService } from './config/config.service';
+import { ConfigItem } from './config/config-item.type';
 
 @Controller()
 export class AppController {
@@ -22,6 +23,6 @@ export class AppController {
         // throw new Error('hello error');
         // return this.appService.root();
 
-        return getEnv() + this.configService.get('DB_USER');
+        return getEnv() + this.configService.get(ConfigItem.DB_HOST);
     }
 }
