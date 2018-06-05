@@ -16,6 +16,7 @@ export class AppLogger implements LoggerService {
             AppLogger._logger = createLogger({
                 transports: [
                     new transports.Console({
+                        level: 'debug',
                         format: combine(colorize(), this.formatter()),
                     }),
                     new transports.Stream({

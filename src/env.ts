@@ -7,7 +7,7 @@ export enum Env {
     PRODUCTION = 'production',
 }
 
-export function getEnv() {
+export function getEnv(): Env {
     const nodeEnv: string = process.env.NODE_ENV;
     const isCorrectNodeEnv: boolean = nodeEnv ? _(Env).values().includes(nodeEnv) : true;
 
@@ -15,5 +15,5 @@ export function getEnv() {
         throw new Error(`NODE_ENV contains wrong value: "${nodeEnv}"`);
     }
 
-    return nodeEnv || Env.DEV;
+    return nodeEnv as Env || Env.DEV;
 }

@@ -2,11 +2,16 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { ConfigService } from '../config/config.service';
 import { ConfigItem } from '../config/config-item.type';
+import { Symbols } from '../constants';
+import { AppLogger } from '../logger';
+import { getEnv, Env } from '../env';
 
 export const databaseProviders = [
     {
-        provide: 'SequelizeToken', // TODO: Try with `Sequelize`
+        provide: Symbols.Sequelize,
         useFactory: async (configService: ConfigService) => {
+            const logger = AppLogger.getLogger();
+
             const sequelize = new Sequelize({
                 dialect: 'postgres',
                 host: configService.get(ConfigItem.DB_HOST),
@@ -14,12 +19,18 @@ export const databaseProviders = [
                 username: configService.get(ConfigItem.DB_USER),
                 password: configService.get(ConfigItem.DB_PASSWORD),
                 database: configService.get(ConfigItem.DB_DATABASE),
-                logging: console.log, // TODO: Use winston logger with `debug` level
+                logging: msg => logger.debug(msg),
+                modelPaths: [__dirname + '/../**/*.model.ts'],
             });
 
-            // sequelize.addModels([Cat]);
+            // Alternative way to register models
+            // sequelize.addModels([Todo]);
 
-            await sequelize.sync();
+            const env: Env = getEnv();
+
+            if (env === Env.DEV) {
+                await sequelize.sync();
+            }
 
             return sequelize;
         },
