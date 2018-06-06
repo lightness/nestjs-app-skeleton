@@ -6,7 +6,7 @@ import { LoggerService } from '@nestjs/common';
 import { Format, TransformableInfo } from 'logform';
 import { createLogger, format, transports, Logger, addColors } from 'winston';
 
-const { combine, colorize } = format;
+const { combine, colorize, prettyPrint } = format;
 
 export class AppLogger implements LoggerService {
     private static _logger: Logger;

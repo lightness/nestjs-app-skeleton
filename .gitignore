@@ -1,4 +1,5 @@
 /node_modules/
-/logs/
+/uploads/
 /dist/
+/logs/
 *.log

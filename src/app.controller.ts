@@ -1,5 +1,14 @@
-import { Get, Controller } from '@nestjs/common';
+import {
+    Get,
+    Post,
+    Req,
+    Controller,
+    UseInterceptors,
+    FileInterceptor,
+    UploadedFile,
+} from '@nestjs/common';
 import { Logger } from 'winston';
+import { inspect } from 'util';
 
 import { getEnv } from './env';
 import { AppLogger } from './logger';
@@ -22,9 +31,16 @@ export class AppController {
     async root(): Promise<string> {
         this.logger.warn('Ololo');
 
-        // throw new Error('hello error');
-        // return this.appService.root();
+        return (
+            getEnv() +
+            this.configService.get(ConfigItem.DB_HOST) +
+            JSON.stringify(await this.todoService.findAll())
+        );
+    }
 
-        return getEnv() + this.configService.get(ConfigItem.DB_HOST) + JSON.stringify(await this.todoService.findAll());
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file', { dest: 'uploads/' }))
+    public async upload(@UploadedFile() file) {
+        this.logger.debug(inspect(file));
     }
 }
