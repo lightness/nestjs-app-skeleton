@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import * as fs from 'fs';
 import * as dotenv from 'dotenv';
 import { Injectable } from '@nestjs/common';
+
 import { ConfigItem } from './config-item.type';
 
 @Injectable()
@@ -18,5 +19,14 @@ export class ConfigService {
 
     public getNumber(key: ConfigItem): number {
         return _.toNumber(this.get(key));
+    }
+
+    public getAgendaConfig(): object {
+        return {
+            db: {
+                address: this.get(ConfigItem.AGENDA_URL),
+                collection: this.get(ConfigItem.AGENDA_COLLECTION),
+            },
+        };
     }
 }

@@ -4,3 +4,7 @@ export const Symbols = {
         Todo: Symbol('TodoRepository'),
     },
 };
+
+export const Paths = {
+    UploadDir: 'uploads/',
+};

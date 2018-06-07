@@ -16,6 +16,7 @@ import { AppService } from './app.service';
 import { ConfigService } from './config/config.service';
 import { ConfigItem } from './config/config-item.type';
 import { TodoService } from './todo/todo.service';
+import { Paths } from './constants';
 
 @Controller()
 export class AppController {
@@ -39,7 +40,7 @@ export class AppController {
     }
 
     @Post('upload')
-    @UseInterceptors(FileInterceptor('file', { dest: 'uploads/' }))
+    @UseInterceptors(FileInterceptor('file', { dest: Paths.UploadDir }))
     public async upload(@UploadedFile() file) {
         this.logger.debug(inspect(file));
     }
