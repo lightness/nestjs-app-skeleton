@@ -5,12 +5,13 @@ import { Symbols } from '../constants';
 import { TodoService } from './todo.service';
 import { DeleteTodoJob } from './delete-todo.job';
 import { AgendaModule } from '../agenda/agenda.module';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
-    imports: [AgendaModule],
+    imports: [AgendaModule, DatabaseModule],
     providers: [
+        { provide: Symbols.Repository.Todo, useFactory: () => Todo, inject: [Symbols.Sequelize] },
         TodoService,
-        { provide: Symbols.Repository.Todo, useValue: Todo },
         DeleteTodoJob,
     ],
     exports: [TodoService],

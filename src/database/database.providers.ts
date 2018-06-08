@@ -20,7 +20,10 @@ export const databaseProviders = [
                 password: configService.get(ConfigItem.DB_PASSWORD),
                 database: configService.get(ConfigItem.DB_DATABASE),
                 logging: msg => logger.debug(msg),
-                modelPaths: [__dirname + '/../**/*.model.ts'],
+                modelPaths: [
+                    __dirname + '/../**/*.model.ts',
+                    __dirname + '/../**/*.model.js',
+                ],
             });
 
             // Alternative way to register models
@@ -29,7 +32,7 @@ export const databaseProviders = [
             const env: Env = getEnv();
 
             if (env === Env.DEV) {
-                await sequelize.sync();
+                await sequelize.sync({ force: true });
             }
 
             return sequelize;

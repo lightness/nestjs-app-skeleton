@@ -4,7 +4,6 @@ import { ValidationError } from 'sequelize';
 import Todo from './todo.model';
 import { Symbols } from '../constants';
 import { AppLogger } from '../logger';
-import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class TodoService {
@@ -13,12 +12,11 @@ export class TodoService {
     public constructor(
         @Inject(Symbols.Repository.Todo)
         private readonly todoRepository: typeof Todo,
-        private readonly configService: ConfigService,
     ) {}
 
     public async findAll(): Promise<Todo[]> {
         try {
-            await this.todoRepository.create({ title: 'x', text: 'a' });
+            await this.todoRepository.create({ title: 'x', text: 'aqwe' });
         } catch (e) {
             this.logger.warn(`${e instanceof ValidationError}`);
         }

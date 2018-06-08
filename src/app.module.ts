@@ -4,8 +4,6 @@ import { AppController } from './app.controller';
 import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
 import { TodoModule } from './todo/todo.module';
-import { AgendaModule } from './agenda/agenda.module';
-import { DeleteTodoJob } from './todo/delete-todo.job';
 
 @Module({
     imports: [
