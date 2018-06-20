@@ -1,4 +1,4 @@
-import { Module, DynamicModule, Type } from '@nestjs/common';
+import { DynamicModule, Module, Type } from '@nestjs/common';
 
 import { AgendaService } from './agenda.service';
 

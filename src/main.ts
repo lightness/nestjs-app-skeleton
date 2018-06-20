@@ -1,10 +1,10 @@
-import * as path from 'path';
-import * as express from 'express';
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as express from 'express';
+import * as path from 'path';
 
-import { AppLogger } from './logger';
 import { AppModule } from './app.module';
+import { AppLogger } from './logger';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {

@@ -1,13 +1,13 @@
-import { Table, Column, Model, Length, CreatedAt } from 'sequelize-typescript';
+import { Column, CreatedAt, Length, Model, Table } from 'sequelize-typescript';
 
 @Table
 export default class Todo extends Model<Todo> {
     @Column({})
-    title: string;
+    public title: string;
 
     @Length({ min: 3, max: 10 })
     @Column({})
-    text: string;
+    public text: string;
 
-    @CreatedAt createdAt: Date;
+    @CreatedAt public createdAt: Date;
 }

@@ -11,13 +11,14 @@ interface JobOptions {
     lockLifetime: number;
 }
 
-export const Job = (options: JobOptions) =>
-    ReflectMetadata(JOB_PARAMS_META_KEY, options);
+export const Job = (options: JobOptions) => ReflectMetadata(JOB_PARAMS_META_KEY, options);
 
 export abstract class JobBase {
     public constructor(protected readonly agendaService: AgendaService) {
         this.init();
     }
+
+    protected abstract handle(job?: any, done?: () => void): void;
 
     private init() {
         const reflector = new Reflector();
@@ -26,6 +27,4 @@ export abstract class JobBase {
         this.agendaService.defineJob(options.name, options.lockLifetime, this.handle.bind(this));
         this.agendaService.runJob(options.name, options.every);
     }
-
-    protected abstract handle(job?: any, done?: () => void): void;
 }

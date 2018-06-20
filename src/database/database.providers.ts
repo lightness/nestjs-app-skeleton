@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize-typescript';
 
-import { ConfigService } from '../config/config.service';
 import { ConfigItem } from '../config/config-item.type';
+import { ConfigService } from '../config/config.service';
 import { Symbols } from '../constants';
-import { AppLogger } from '../logger';
 import { getEnv, Env } from '../env';
+import { AppLogger } from '../logger';
 
 export const databaseProviders = [
     {

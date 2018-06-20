@@ -1,7 +1,7 @@
-import * as _ from 'lodash';
-import * as Agenda from 'agenda';
-import { Logger } from 'winston';
 import { Injectable } from '@nestjs/common';
+import * as Agenda from 'agenda';
+import * as _ from 'lodash';
+import { Logger } from 'winston';
 
 import { ConfigService } from '../config/config.service';
 import { AppLogger } from '../logger';

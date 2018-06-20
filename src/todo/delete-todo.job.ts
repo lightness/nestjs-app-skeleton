@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { JobBase, Job } from '../agenda/job-base';
 import { AgendaService } from '../agenda/agenda.service';
+import { Job, JobBase } from '../agenda/job-base';
 import { TodoService } from './todo.service';
 
 @Injectable()

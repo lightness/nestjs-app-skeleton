@@ -1,7 +1,7 @@
-import * as _ from 'lodash';
-import * as fs from 'fs';
-import * as dotenv from 'dotenv';
 import { Injectable } from '@nestjs/common';
+import * as dotenv from 'dotenv';
+import * as fs from 'fs';
+import * as _ from 'lodash';
 
 import { ConfigItem } from './config-item.type';
 

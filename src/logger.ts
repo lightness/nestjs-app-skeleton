@@ -1,43 +1,43 @@
+import { LoggerService } from '@nestjs/common';
 import * as fs from 'fs';
 import * as _ from 'lodash';
+import { Format, TransformableInfo } from 'logform';
 import * as moment from 'moment';
 import { MESSAGE } from 'triple-beam';
-import { LoggerService } from '@nestjs/common';
-import { Format, TransformableInfo } from 'logform';
-import { createLogger, format, transports, Logger, addColors } from 'winston';
+import { addColors, createLogger, format, transports, Logger } from 'winston';
 
 const { combine, colorize, prettyPrint } = format;
 
 export class AppLogger implements LoggerService {
-    private static _logger: Logger;
-
     public static getLogger(): Logger {
-        if (!AppLogger._logger) {
-            AppLogger._logger = createLogger({
+        if (!AppLogger.logger) {
+            AppLogger.logger = createLogger({
                 transports: [
                     new transports.Console({
-                        level: 'debug',
                         format: combine(colorize(), this.formatter()),
+                        level: 'debug',
                     }),
                     new transports.Stream({
+                        format: this.formatter(),
                         stream: fs.createWriteStream('logs/full.log', {
                             flags: 'a',
                         }),
-                        format: this.formatter(),
                     }),
                     new transports.Stream({
+                        format: this.formatter(),
                         level: 'error',
                         stream: fs.createWriteStream('logs/error.log', {
                             flags: 'a',
                         }),
-                        format: this.formatter(),
                     }),
                 ],
             });
         }
 
-        return AppLogger._logger;
+        return AppLogger.logger;
     }
+
+    private static logger: Logger;
 
     private static formatter = format((info, opts) => {
         const timestamp = moment().format('DD-MM-YYYY hh:mm:ss.SSS');

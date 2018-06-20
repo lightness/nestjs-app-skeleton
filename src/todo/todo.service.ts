@@ -1,9 +1,9 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ValidationError } from 'sequelize';
 
-import Todo from './todo.model';
 import { Symbols } from '../constants';
 import { AppLogger } from '../logger';
+import Todo from './todo.model';
 
 @Injectable()
 export class TodoService {

@@ -1,22 +1,22 @@
 import {
+    Controller,
+    FileInterceptor,
     Get,
     Post,
     Req,
-    Controller,
-    UseInterceptors,
-    FileInterceptor,
     UploadedFile,
+    UseInterceptors,
 } from '@nestjs/common';
-import { Logger } from 'winston';
 import { inspect } from 'util';
+import { Logger } from 'winston';
 
+import { AppService } from './app.service';
+import { ConfigItem } from './config/config-item.type';
+import { ConfigService } from './config/config.service';
+import { Paths } from './constants';
 import { getEnv } from './env';
 import { AppLogger } from './logger';
-import { AppService } from './app.service';
-import { ConfigService } from './config/config.service';
-import { ConfigItem } from './config/config-item.type';
 import { TodoService } from './todo/todo.service';
-import { Paths } from './constants';
 
 @Controller()
 export class AppController {
@@ -29,7 +29,7 @@ export class AppController {
     ) {}
 
     @Get()
-    async root(): Promise<string> {
+    public async root(): Promise<string> {
         this.logger.warn('Ololo');
 
         return (
