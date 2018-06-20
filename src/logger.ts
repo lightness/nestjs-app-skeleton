@@ -1,12 +1,10 @@
 import { LoggerService } from '@nestjs/common';
-import * as fs from 'fs';
-import * as _ from 'lodash';
-import { Format, TransformableInfo } from 'logform';
-import * as moment from 'moment';
+import fs from 'fs';
+import moment from 'moment';
 import { MESSAGE } from 'triple-beam';
-import { addColors, createLogger, format, transports, Logger } from 'winston';
+import { createLogger, format, transports, Logger } from 'winston';
 
-const { combine, colorize, prettyPrint } = format;
+const { combine, colorize } = format;
 
 export class AppLogger implements LoggerService {
     public static getLogger(): Logger {

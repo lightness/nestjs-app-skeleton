@@ -1,4 +1,6 @@
 export enum ConfigItem {
+    DB_STORAGE = 'DB_STORAGE',
+    DB_DIALECT = 'DB_DIALECT',
     DB_USER = 'DB_USER',
     DB_PASSWORD = 'DB_PASSWORD',
     DB_HOST = 'DB_HOST',

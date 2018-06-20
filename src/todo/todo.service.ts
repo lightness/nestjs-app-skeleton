@@ -9,10 +9,7 @@ import Todo from './todo.model';
 export class TodoService {
     private logger = AppLogger.getLogger();
 
-    public constructor(
-        @Inject(Symbols.Repository.Todo)
-        private readonly todoRepository: typeof Todo,
-    ) {}
+    public constructor(@Inject(Symbols.Repository.Todo) private readonly todoRepository: typeof Todo) {}
 
     public async findAll(): Promise<Todo[]> {
         try {
@@ -22,5 +19,9 @@ export class TodoService {
         }
 
         return await this.todoRepository.findAll<Todo>();
+    }
+
+    public async create(todo: Todo): Promise<Todo> {
+        return await this.todoRepository.create(todo);
     }
 }
