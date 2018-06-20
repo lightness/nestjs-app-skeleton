@@ -1,6 +1,7 @@
 import { LoggerService } from '@nestjs/common';
 import fs from 'fs';
 import moment from 'moment';
+import path from 'path';
 import { MESSAGE } from 'triple-beam';
 import { createLogger, format, transports, Logger } from 'winston';
 
@@ -9,6 +10,12 @@ const { combine, colorize } = format;
 export class AppLogger implements LoggerService {
     public static getLogger(): Logger {
         if (!AppLogger.logger) {
+            const LOGS_DIR = 'logs';
+
+            if (!fs.existsSync(LOGS_DIR)) {
+                fs.mkdirSync(LOGS_DIR);
+            }
+
             AppLogger.logger = createLogger({
                 transports: [
                     new transports.Console({
@@ -17,16 +24,12 @@ export class AppLogger implements LoggerService {
                     }),
                     new transports.Stream({
                         format: this.formatter(),
-                        stream: fs.createWriteStream('logs/full.log', {
-                            flags: 'a',
-                        }),
+                        stream: fs.createWriteStream(path.join(LOGS_DIR, 'full.log'), { flags: 'a' }),
                     }),
                     new transports.Stream({
                         format: this.formatter(),
                         level: 'error',
-                        stream: fs.createWriteStream('logs/error.log', {
-                            flags: 'a',
-                        }),
+                        stream: fs.createWriteStream(path.join(LOGS_DIR, 'error.log'), { flags: 'a' }),
                     }),
                 ],
             });
