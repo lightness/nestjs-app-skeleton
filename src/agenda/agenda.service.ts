@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as Agenda from 'agenda';
-import * as _ from 'lodash';
+import { each } from 'lodash';
 import { Logger } from 'winston';
 
 import { ConfigService } from '../config/config.service';
@@ -23,11 +23,7 @@ export class AgendaService {
         process.on('SIGINT', this.gracefulStop.bind(this));
     }
 
-    public defineJob(
-        jobName: string,
-        lockLifetime: number,
-        handler: (job, done?) => void,
-    ) {
+    public defineJob(jobName: string, lockLifetime: number, handler: (job, done?) => void) {
         this.agenda.define(jobName, { lockLifetime }, handler);
     }
 
@@ -49,11 +45,10 @@ export class AgendaService {
     private onReady() {
         this.status.isReady = true;
 
-        _.each(this.deferredJobs, job => {
+        each(this.deferredJobs, job => {
             this.agenda.every(job.when, job.jobName);
         });
 
         this.agenda.start();
     }
-
 }

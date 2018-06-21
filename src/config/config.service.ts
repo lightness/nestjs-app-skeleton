@@ -1,15 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
-import * as _ from 'lodash';
+import { toNumber } from 'lodash';
 
+import { Symbols } from '../constants';
 import { ConfigItem } from './config-item.type';
 
 @Injectable()
 export class ConfigService {
     private readonly envConfig: { [prop in ConfigItem]: string };
 
-    constructor(filePath: string) {
+    constructor(@Inject(Symbols.ConfigPath) filePath: string) {
         this.envConfig = dotenv.parse(fs.readFileSync(filePath));
     }
 
@@ -18,7 +19,7 @@ export class ConfigService {
     }
 
     public getNumber(key: ConfigItem): number {
-        return _.toNumber(this.get(key));
+        return toNumber(this.get(key));
     }
 
     public getAgendaConfig(): object {

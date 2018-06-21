@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { chain } from 'lodash';
 
 export enum Env {
     DEV = 'dev',
@@ -11,9 +11,10 @@ export function getEnv(): Env {
     const nodeEnv: string = process.env.NODE_ENV;
 
     const isCorrectNodeEnv: boolean = nodeEnv
-        ? _(Env)
+        ? chain(Env)
               .values()
               .includes(nodeEnv)
+              .value()
         : true;
 
     if (!isCorrectNodeEnv) {
