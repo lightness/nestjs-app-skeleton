@@ -5,12 +5,9 @@ import { Job, JobBase } from '../agenda/job-base';
 import { TodoService } from './todo.service';
 
 @Injectable()
-@Job({ name: 'delete job', every: '1 seconds', lockLifetime: 5000 })
+@Job({ name: 'delete job', every: '1 minutes', lockLifetime: 5000 })
 export class DeleteTodoJob extends JobBase {
-    public constructor(
-        protected readonly agendaService: AgendaService,
-        protected readonly todoService: TodoService,
-    ) {
+    public constructor(protected readonly agendaService: AgendaService, protected readonly todoService: TodoService) {
         super(agendaService);
     }
 
