@@ -48,7 +48,7 @@ describe('TodoService', () => {
             const createdTodo = await service.create(todo);
 
             expect(createdTodo).toBeDefined();
-            expect(createdTodo).toEqual(expect.any(Todo));
+            expect(createdTodo).not.toEqual(expect.any(Todo));
         });
     });
 });
