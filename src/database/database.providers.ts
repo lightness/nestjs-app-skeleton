@@ -33,6 +33,8 @@ export const databaseProviders = [
                 await sequelize.sync({ force: true });
             }
 
+            console.warn('>>> Sequelize ready');
+
             return sequelize;
         },
         inject: [ConfigService],

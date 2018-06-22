@@ -10,7 +10,7 @@ import { TodoService } from './todo.service';
 @Module({
     imports: [AgendaModule, DatabaseModule],
     providers: [
-        { provide: Symbols.Repository.Todo, useFactory: () => Todo, inject: [Symbols.Sequelize] },
+        { provide: Symbols.Repository.Todo, useValue: Todo },
         TodoService,
         DeleteTodoJob,
     ],
